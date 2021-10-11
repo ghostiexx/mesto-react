@@ -50,10 +50,9 @@ function Main({onEditAvatar, onEditProfile, onAddPlace, onCardClick}) {
 			<section className="cards">
 				{cards.map(item =>
 					<Card
-
+						onCardClick={onCardClick}
 						card={item}
 						key={item._id}
-						onCardClick={onCardClick}
 					/>
 				)}
 			</section>

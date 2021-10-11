@@ -7,6 +7,7 @@ import ImagePopup from "./components/ImagePopup";
 import EditProfilePopup from "./components/EditProfilePopup";
 import AddPlacePopup from "./components/AddPlacePopup";
 import EditAvatarPopup from "./components/EditAvatarPopup";
+import ConfirmPopup from "./components/ConfirmPopup";
 
 import './App.css';
 
@@ -28,19 +29,19 @@ function App() {
 		setAddPlacePopupOpen(true);
 	}
 
-	function closeAllPopups() {
-		setEditAvatarPopupOpen(false);
-		setEditProfilePopupOpen(false);
-		setAddPlacePopupOpen(false);
-		setSelectedCard({isOpen: false});
-	}
-
 	function handleCardClick(card) {
 		setSelectedCard({
 			isOpen: true,
 			link: card.link,
 			name: card.name
 		})
+	}
+
+	function closeAllPopups() {
+		setEditAvatarPopupOpen(false);
+		setEditProfilePopupOpen(false);
+		setAddPlacePopupOpen(false);
+		setSelectedCard({isOpen: false});
 	}
 
 	return (
@@ -70,18 +71,8 @@ function App() {
 				isOpen={selectedCard.isOpen}
 				onClose={closeAllPopups}
 			/>
-
-			<div className="popup popup_type_confirm">
-				<div className="popup__container">
-					<h3 className="popup__title">Вы уверены?</h3>
-					<form action="/" name="popup-confirm" className="popup__form popup__form_type_confirm">
-						<fieldset className="popup__inputs">
-							<button className="popup__save popup__save_type_confirm button" type="submit" aria-label="Сохранить изменения">Да</button>
-						</fieldset>
-					</form>
-					<button className="popup__close button" type="button" aria-label="Закрыть модальное окно"></button>
-				</div>
-			</div>
+			<ConfirmPopup
+			/>
 		</>
 	);
 }
