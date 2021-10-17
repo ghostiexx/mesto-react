@@ -71,28 +71,6 @@ class Api {
 			.then(response => this._responseHandler(response))
 	}
 
-	setLike(id) {
-		return fetch(`${this._baseUrl}/cards/likes/${id}`, {
-			method: 'PUT',
-			headers: {
-				authorization: this._token,
-				'Content-Type': 'application/json'
-			}
-		})
-			.then(response => this._responseHandler(response))
-	}
-
-	removeLike(id) {
-		return fetch(`${this._baseUrl}/cards/likes/${id}`, {
-			method: 'DELETE',
-			headers: {
-				authorization: this._token,
-				'Content-Type': 'application/json'
-			}
-		})
-			.then(response => this._responseHandler(response))
-	}
-
 	updateAvatar(link) {
 		return fetch(`${this._baseUrl}/users/me/avatar`, {
 			method: 'PATCH',
@@ -100,11 +78,31 @@ class Api {
 				authorization: this._token,
 				'Content-Type': 'application/json'
 			},
-			body: JSON.stringify({
-				avatar: link
-			})
+			body: JSON.stringify(link)
 		})
 			.then(response => this._responseHandler(response))
+	}
+
+	changeLikeCardStatus(id, isLiked) {
+		if (isLiked) {
+			return fetch(`${this._baseUrl}/cards/likes/${id}`, {
+				method: 'PUT',
+				headers: {
+					authorization: this._token,
+					'Content-Type': 'application/json'
+				}
+			})
+				.then(response => this._responseHandler(response))
+		} else {
+			return fetch(`${this._baseUrl}/cards/likes/${id}`, {
+				method: 'DELETE',
+				headers: {
+					authorization: this._token,
+					'Content-Type': 'application/json'
+				}
+			})
+				.then(response => this._responseHandler(response))
+		}
 	}
 }
 

@@ -1,15 +1,36 @@
 import PopupWithForm from "./PopupWithForm";
 import React from "react";
 
-function EditAvatarPopup({isOpen, onClose}) {
+function EditAvatarPopup(props) {
+	const avatarRef = React.useRef();
+
+	function handleSubmit(event) {
+		event.preventDefault();
+
+		if (avatarRef) {
+			props.onUpdateAvatar({
+				avatar: avatarRef.current.value,
+			});
+		}
+	}
+
 	return (
 		<PopupWithForm
-			isOpen={isOpen}
+			isOpen={props.isOpen}
 			title={'Обновить аватар'}
 			name={'update'}
-			onClose={onClose}
+			onClose={props.onClose}
+			onSubmit={handleSubmit}
 		>
-			<input type="url" className="popup__input popup__input_type_link" placeholder="Ссылка на картинку" id="newAvatar" name="newAvatar" required/>
+			<input
+				type="url"
+				className="popup__input popup__input_type_link"
+				placeholder="Ссылка на картинку"
+				id="newAvatar"
+				name="newAvatar"
+				ref={avatarRef}
+				required
+			/>
 			<span className="popup__error newAvatar-error">Message</span>
 		</PopupWithForm>
 	);
