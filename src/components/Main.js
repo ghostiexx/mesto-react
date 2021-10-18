@@ -6,10 +6,10 @@ import Card from "./Card";
 
 import {CurrentUserContext} from "../contexts/CurrentUserContext";
 
-function Main(props) {
+function Main({ cards, onAddPlace, onCardDelete, onCardLike, onCardClick, onEditAvatar, onEditProfile }) {
 	const currentUser = React.useContext(CurrentUserContext);
 
-	if (!currentUser || !props.cards) {
+	if (!currentUser || !cards) {
 		return (
 			<div>loading</div>
 		)
@@ -19,14 +19,14 @@ function Main(props) {
 			<section className="profile">
 				<div className="profile__avatar">
 					<img src={currentUser.avatar} alt="Изображение профиля" className="profile__avatar-image"/>
-					<div onClick={props.onEditAvatar} className="profile__avatar-btn">
-						<img src="./images/edit.svg" alt="Иконка редактирования" className="profile__avatar-icon"/>
+					<div onClick={onEditAvatar} className="profile__avatar-btn">
+						<img src={editIcon} alt="Иконка редактирования" className="profile__avatar-icon"/>
 					</div>
 				</div>
 				<div className="profile__info">
 					<h1 className="profile__name">{currentUser.name}</h1>
 					<button
-						onClick={props.onEditProfile}
+						onClick={onEditProfile}
 						className="profile__edit-button button"
 						type="button"
 						aria-label="Редактировать профиль"
@@ -36,7 +36,7 @@ function Main(props) {
 					<p className="profile__description">{currentUser.about}</p>
 				</div>
 				<button
-					onClick={props.onAddPlace}
+					onClick={onAddPlace}
 					className="profile__add-button button"
 					type="button"
 					aria-label="Добавить фотографию"
@@ -46,11 +46,11 @@ function Main(props) {
 			</section>
 			<section className="cards">
 				{
-					props.cards.map(item => (
+					cards.map(item => (
 							<Card
-								onCardClick={props.onCardClick}
-								onCardLike={props.onCardLike}
-								onCardDelete={props.onCardDelete}
+								onCardClick={onCardClick}
+								onCardLike={onCardLike}
+								onCardDelete={onCardDelete}
 								card={item}
 								key={item._id}
 							/>
